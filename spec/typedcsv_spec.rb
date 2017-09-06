@@ -6,7 +6,7 @@ RSpec.describe Typedcsv do
     it "wraps CSV.foreach with headers" do
       Tempfile.open('test.csv') do |f|
         f.puts "name,income:number,created_at:date,zipcode:text,list:list,great:boolean,null"
-        f.puts "seamus,123.45,2017-08-30,00540,1;2;3,true"
+        f.puts 'seamus,123.45,2017-08-30,00540,"1,2,3",true'
         f.flush
         count = 0
         Typedcsv.foreach(f.path, headers: true) do |row|
@@ -47,7 +47,7 @@ RSpec.describe Typedcsv do
   it "wraps CSV.foreach in array mode" do
     Tempfile.open('test.csv') do |f|
       f.puts "name,income:number,created_at:date,zipcode:text,list:list,great:boolean,null"
-      f.puts "seamus,123.45,2017-08-30,00540,1;2;3,true"
+      f.puts 'seamus,123.45,2017-08-30,00540,"1,2,3",true'
       f.flush
       count = 0
       Typedcsv.foreach(f.path) do |row|

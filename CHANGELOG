@@ -11,3 +11,9 @@ Enhancements
 Bug fixes
 
   * Handles null (empty string) across types
+
+1.0.0 / 2017-09-06
+
+Breaking changes
+
+  * list types are internally comma-separated, principle of least surprise

@@ -90,7 +90,7 @@ class Typedcsv
           false
         end
       when 'list'
-        CSV.parse_line(v, col_sep: ';')
+        CSV.parse_line(v)
       when 'date'
         Time.parse(v).to_date
       when 'time'

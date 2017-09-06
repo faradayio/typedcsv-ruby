@@ -28,7 +28,7 @@ else
         rand(2**16) + rand(),
         Faker::Date.backward(900),
         Faker::Address.zip_code,
-        rand(5).times.map { Faker::TwinPeaks.location }.to_csv(col_sep: ';').chomp,
+        rand(5).times.map { Faker::TwinPeaks.location }.to_csv.chomp,
         SecureRandom.uuid,
         Faker::TwinPeaks.quote
       ].to_csv
