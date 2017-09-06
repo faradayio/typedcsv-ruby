@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["seamus@abshere.net"]
 
   spec.summary       = %q{Thin wrapper around Ruby's stdlib CSV parser that adds typed csv support.}
-  spec.homepage      = "https://github.com/faradayio/typedcsv"
+  spec.homepage      = "https://github.com/faradayio/typedcsv-ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
