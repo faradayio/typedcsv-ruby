@@ -1,43 +1,62 @@
 # Typedcsv
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/typedcsv`. To experiment with that code, run `bin/console` for an interactive prompt.
+Here's your standard untyped CSV:
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'typedcsv'
+```
+name,income,created_at,tags
+Seamus,12301.2,2012-02-21,red;blue
 ```
 
-And then execute:
+Now, you and I know that `12301.2` is a number and `2012-02-21` is a date and `red;blue` is a list... so let's just write that into the headers:
 
-    $ bundle
+```
+name,income:number,created_at:date,tags:list
+Seamus,12301.2,2012-02-21,red;blue
+```
 
-Or install it yourself as:
+Now let's parse it:
 
-    $ gem install typedcsv
+```
+Typedcsv.foreach('file.csv', headers: true) do |row|
+  row['income']     # will be a Float
+  row['created_at'] # will be a Date
+  row['tags']       # will be an Array
+end
+```
 
-## Usage
+This gem provides `Typedcsv.foreach()`, which takes exactly the same arguments as [ruby stdlib `CSV.foreach`](https://ruby-doc.org/stdlib-2.4.1/libdoc/csv/rdoc/CSV.html#method-c-foreach).
 
-TODO: Write usage instructions here
+## Types
 
-## Development
+* text (default)
+* number
+* list (must be semicolon-separated)
+* date (must be ISO8601)
+* time (must be ISO8601)
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Benchmarks
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+It's about 10x slower than ruby's stdlib `CSV.foreach`:
 
-## Contributing
+```
+cd benchmark && ruby benchmark.rb
+[...]
+CSV.foreach - array mode
+                          2.503  (± 0.0%) i/s -     13.000  in   5.197588s
+Typedcsv.foreach - array mode
+                          0.253  (± 0.0%) i/s -      2.000  in   7.892107s
+CSV.foreach - hash mode
+                          1.830  (± 0.0%) i/s -     10.000  in   5.466998s
+Typedcsv.foreach - hash mode
+                          0.226  (± 0.0%) i/s -      2.000  in   8.867616s
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/typedcsv. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+## Sponsor
 
-## License
+<p><a href="https://www.faraday.io"><img src="https://s3.amazonaws.com/faraday-assets/files/img/logo.svg" alt="Faraday logo"/></a></p>
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+We use [`typedcsv`](https://github.com/faradayio/typedcsv) for [B2C customer intelligence at Faraday](https://www.faraday.io).
 
-## Code of Conduct
+## Copyright
 
-Everyone interacting in the Typedcsv project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/typedcsv/blob/master/CODE_OF_CONDUCT.md).
+Copyright 2017 Faraday
