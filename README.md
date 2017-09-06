@@ -3,15 +3,15 @@
 Here's your standard untyped CSV:
 
 ```
-name,income,created_at,tags
-Seamus,12301.2,2012-02-21,red;blue
+name,income,created_at,tags,great
+Seamus,12301.2,2012-02-21,red;blue,true
 ```
 
 Now, you and I know that `12301.2` is a number and `2012-02-21` is a date and `red;blue` is a list... so let's just write that into the headers:
 
 ```
-name,income:number,created_at:date,tags:list
-Seamus,12301.2,2012-02-21,red;blue
+name,income:number,created_at:date,tags:list,great:boolean
+Seamus,12301.2,2012-02-21,red;blue,true
 ```
 
 Now let's parse it:
@@ -21,6 +21,7 @@ Typedcsv.foreach('file.csv', headers: true) do |row|
   row['income']     # will be a Float
   row['created_at'] # will be a Date
   row['tags']       # will be an Array
+  row['great']      # will be TrueClass or FalseClass
 end
 ```
 
@@ -33,6 +34,7 @@ This gem provides `Typedcsv.foreach()`, which takes exactly the same arguments a
 * list (must be semicolon-separated)
 * date (must be ISO8601)
 * time (must be ISO8601)
+* boolean (recognizes "true" or "false")
 
 ## Benchmarks
 

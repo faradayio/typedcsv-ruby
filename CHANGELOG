@@ -1,0 +1,13 @@
+0.1.0 / 2017-09-06
+
+Initial version!
+
+0.1.1 / 2017-09-06
+
+Enhancements
+
+  * boolean type
+
+Bug fixes
+
+  * Handles null (empty string) across types

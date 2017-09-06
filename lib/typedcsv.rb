@@ -44,6 +44,9 @@ class Typedcsv
   end
 
   class Headers
+    TRUE = 'true'
+    FALSE = 'false'
+    EMPTY_STRING = ''
     attr_reader :raw
     def initialize(raw)
       @raw = raw
@@ -72,10 +75,20 @@ class Typedcsv
     end
     private
     def convert(type, v)
+      if v.nil? or v == EMPTY_STRING
+        return nil
+      end
       case type
       when 'text'
         # defaults to no parsing
         v
+      when 'boolean'
+        case v
+        when TRUE
+          true
+        when FALSE
+          false
+        end
       when 'list'
         CSV.parse_line(v, col_sep: ';')
       when 'date'
